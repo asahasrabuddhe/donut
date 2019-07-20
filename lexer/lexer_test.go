@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"github.com/asahasrabuddhe/donut/token"
+	"go.ajitem.com/donut/token"
 	"testing"
 )
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/asahasrabuddhe/donut/repl"
+	"go.ajitem.com/donut/repl"
 	"os"
 	"os/user"
 )

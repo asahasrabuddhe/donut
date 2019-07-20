@@ -3,8 +3,8 @@ package repl
 import (
 	"bufio"
 	"fmt"
-	"github.com/asahasrabuddhe/donut/lexer"
-	"github.com/asahasrabuddhe/donut/token"
+	"go.ajitem.com/donut/lexer"
+	"go.ajitem.com/donut/token"
 	"io"
 )
 
