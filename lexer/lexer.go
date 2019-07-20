@@ -15,17 +15,6 @@ func New(input string) *Lexer {
 	return l
 }
 
-func (l *Lexer) readChar() {
-	if l.readPosition >= len(l.input) {
-		l.ch = 0
-	} else {
-		l.ch = l.input[l.readPosition]
-	}
-
-	l.position = l.readPosition
-	l.readPosition++
-}
-
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
@@ -33,7 +22,11 @@ func (l *Lexer) NextToken() token.Token {
 
 	switch l.ch {
 	case '=':
-		tok = token.NewToken(token.ASSIGN, l.ch)
+		if l.peekChar() == '=' {
+			tok = token.Token{Type: token.EQ, Literal: l.getPeekedLiteral()}
+		} else {
+			tok = token.NewToken(token.ASSIGN, l.ch)
+		}
 	case '+':
 		tok = token.NewToken(token.PLUS, l.ch)
 	case '-':
@@ -43,11 +36,23 @@ func (l *Lexer) NextToken() token.Token {
 	case '/':
 		tok = token.NewToken(token.SLASH, l.ch)
 	case '!':
-		tok = token.NewToken(token.BANG, l.ch)
+		if l.peekChar() == '=' {
+			tok = token.Token{Type: token.NOT_EQ, Literal: l.getPeekedLiteral()}
+		} else {
+			tok = token.NewToken(token.BANG, l.ch)
+		}
 	case '<':
-		tok = token.NewToken(token.LT, l.ch)
+		if l.peekChar() == '=' {
+			tok = token.Token{Type: token.LTE, Literal: l.getPeekedLiteral()}
+		} else {
+			tok = token.NewToken(token.LT, l.ch)
+		}
 	case '>':
-		tok = token.NewToken(token.GT, l.ch)
+		if l.peekChar() == '=' {
+			tok = token.Token{Type: token.GTE, Literal: l.getPeekedLiteral()}
+		} else {
+			tok = token.NewToken(token.GT, l.ch)
+		}
 	case ',':
 		tok = token.NewToken(token.COMMA, l.ch)
 	case ';':
@@ -83,6 +88,31 @@ func (l *Lexer) NextToken() token.Token {
 
 	l.readChar()
 	return tok
+}
+
+func (l *Lexer) readChar() {
+	if l.readPosition >= len(l.input) {
+		l.ch = 0
+	} else {
+		l.ch = l.input[l.readPosition]
+	}
+
+	l.position = l.readPosition
+	l.readPosition++
+}
+
+func (l *Lexer) peekChar() byte {
+	if l.readPosition >= len(l.input) {
+		return 0
+	} else {
+		return l.input[l.readPosition]
+	}
+}
+
+func (l *Lexer) getPeekedLiteral() string {
+	ch := l.ch
+	l.readChar()
+	return string(ch) + string(l.ch)
 }
 
 func (l *Lexer) readIdentifier() string {
