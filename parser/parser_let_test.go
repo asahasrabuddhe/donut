@@ -17,7 +17,7 @@ let y = 10;
 let foobar = 838383;
 `
 
-	l := lexer.New(input)
+	l := lexer.NewLexer(input)
 	p := NewParser(l)
 
 	program := p.ParseProgram()
@@ -44,6 +44,7 @@ let foobar = 838383;
 
 	for i, tt := range tests {
 		stmt := program.Statements[i]
+
 		if !testLetStatement(t, stmt, tt.expectedIdentifier) {
 			return
 		}

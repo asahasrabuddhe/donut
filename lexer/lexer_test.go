@@ -36,7 +36,7 @@ func TestNextToken(t *testing.T) {
 	5 >= 1;
 	`
 	tests := []struct {
-		expectedType    token.TokenType
+		expectedType    token.Type
 		expectedLiteral string
 	}{
 		{token.LET, "let"},
@@ -109,7 +109,7 @@ func TestNextToken(t *testing.T) {
 		{token.INT, "10"},
 		{token.SEMICOLON, ";"},
 		{token.INT, "10"},
-		{token.NOT_EQ, "!="},
+		{token.NOTEQ, "!="},
 		{token.INT, "9"},
 		{token.SEMICOLON, ";"},
 		{token.INT, "5"},
@@ -123,7 +123,7 @@ func TestNextToken(t *testing.T) {
 		{token.EOF, ""},
 	}
 
-	l := New(input)
+	l := NewLexer(input)
 
 	for i, tt := range tests {
 		tok := l.NextToken()
