@@ -4,14 +4,14 @@
 
 package token
 
-type TokenType string
+type Type string
 
 type Token struct {
-	Type    TokenType
+	Type    Type
 	Literal string
 }
 
-func NewToken(tokenType TokenType, ch byte) Token {
+func NewToken(tokenType Type, ch byte) Token {
 	return Token{Type: tokenType, Literal: string(ch)}
 }
 
@@ -33,7 +33,7 @@ const (
 	LT       = "<"
 	GT       = ">"
 	EQ       = "=="
-	NOT_EQ   = "!="
+	NOTEQ    = "!="
 	LTE      = "<="
 	GTE      = ">="
 
@@ -58,7 +58,7 @@ const (
 	RETURN   = "RETURN"
 )
 
-var keywords = map[string]TokenType{
+var keywords = map[string]Type{
 	"fn":     FUNCTION,
 	"let":    LET,
 	"true":   TRUE,
@@ -68,7 +68,7 @@ var keywords = map[string]TokenType{
 	"return": RETURN,
 }
 
-func LookupIndent(ident string) TokenType {
+func LookupIndent(ident string) Type {
 	if tok, ok := keywords[ident]; ok {
 		return tok
 	}
