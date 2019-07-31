@@ -34,6 +34,20 @@ func TestNextToken(t *testing.T) {
 
 	5 <= 10;
 	5 >= 1;
+
+	five++;
+	++ten;
+
+	ten--;
+	--five;
+
+	five += 3;
+	ten -= 2;
+	five *= 2;
+	ten /= 4;
+	five %= 5;
+	let q = 9 % 5;
+	let d = 3.5;
 	`
 	tests := []struct {
 		expectedType    token.Type
@@ -60,7 +74,7 @@ func TestNextToken(t *testing.T) {
 		{token.RPAREN, ")"},
 		{token.LBRACE, "{"},
 		{token.IDENT, "x"},
-		{token.PLUS, "+"},
+		{token.ADD, "+"},
 		{token.IDENT, "y"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
@@ -76,9 +90,9 @@ func TestNextToken(t *testing.T) {
 		{token.RPAREN, ")"},
 		{token.SEMICOLON, ";"},
 		{token.BANG, "!"},
-		{token.MINUS, "-"},
-		{token.SLASH, "/"},
-		{token.ASTERISK, "*"},
+		{token.SUB, "-"},
+		{token.DIV, "/"},
+		{token.MUL, "*"},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		{token.INT, "5"},
@@ -119,6 +133,50 @@ func TestNextToken(t *testing.T) {
 		{token.INT, "5"},
 		{token.GTE, ">="},
 		{token.INT, "1"},
+		{token.SEMICOLON, ";"},
+		{token.IDENT, "five"},
+		{token.INCR, "++"},
+		{token.SEMICOLON, ";"},
+		{token.INCR, "++"},
+		{token.IDENT, "ten"},
+		{token.SEMICOLON, ";"},
+		{token.IDENT, "ten"},
+		{token.DECR, "--"},
+		{token.SEMICOLON, ";"},
+		{token.DECR, "--"},
+		{token.IDENT, "five"},
+		{token.SEMICOLON, ";"},
+		{token.IDENT, "five"},
+		{token.ADD_ASSIGN, "+="},
+		{token.INT, "3"},
+		{token.SEMICOLON, ";"},
+		{token.IDENT, "ten"},
+		{token.SUB_ASSIGN, "-="},
+		{token.INT, "2"},
+		{token.SEMICOLON, ";"},
+		{token.IDENT, "five"},
+		{token.MUL_ASSIGN, "*="},
+		{token.INT, "2"},
+		{token.SEMICOLON, ";"},
+		{token.IDENT, "ten"},
+		{token.DIV_ASSIGN, "/="},
+		{token.INT, "4"},
+		{token.SEMICOLON, ";"},
+		{token.IDENT, "five"},
+		{token.REM_ASSIGN, "%="},
+		{token.INT, "5"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "q"},
+		{token.ASSIGN, "="},
+		{token.INT, "9"},
+		{token.REM, "%"},
+		{token.INT, "5"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "d"},
+		{token.ASSIGN, "="},
+		{token.FLOAT, "3.5"},
 		{token.SEMICOLON, ";"},
 		{token.EOF, ""},
 	}

@@ -4,7 +4,10 @@
 
 package lexer
 
-import "go.ajitem.com/donut/token"
+import (
+	"go.ajitem.com/donut/token"
+	"strings"
+)
 
 type Lexer struct {
 	input        string
@@ -32,13 +35,39 @@ func (l *Lexer) NextToken() token.Token {
 			tok = token.NewToken(token.ASSIGN, l.ch)
 		}
 	case '+':
-		tok = token.NewToken(token.PLUS, l.ch)
+		if l.peekChar() == '+' {
+			tok = token.Token{Type: token.INCR, Literal: l.getPeekedLiteral()}
+		} else if l.peekChar() == '=' {
+			tok = token.Token{Type: token.ADD_ASSIGN, Literal: l.getPeekedLiteral()}
+		} else {
+			tok = token.NewToken(token.ADD, l.ch)
+		}
 	case '-':
-		tok = token.NewToken(token.MINUS, l.ch)
+		if l.peekChar() == '-' {
+			tok = token.Token{Type: token.DECR, Literal: l.getPeekedLiteral()}
+		} else if l.peekChar() == '=' {
+			tok = token.Token{Type: token.SUB_ASSIGN, Literal: l.getPeekedLiteral()}
+		} else {
+			tok = token.NewToken(token.SUB, l.ch)
+		}
 	case '*':
-		tok = token.NewToken(token.ASTERISK, l.ch)
+		if l.peekChar() == '=' {
+			tok = token.Token{Type: token.MUL_ASSIGN, Literal: l.getPeekedLiteral()}
+		} else {
+			tok = token.NewToken(token.MUL, l.ch)
+		}
 	case '/':
-		tok = token.NewToken(token.SLASH, l.ch)
+		if l.peekChar() == '=' {
+			tok = token.Token{Type: token.DIV_ASSIGN, Literal: l.getPeekedLiteral()}
+		} else {
+			tok = token.NewToken(token.DIV, l.ch)
+		}
+	case '%':
+		if l.peekChar() == '=' {
+			tok = token.Token{Type: token.REM_ASSIGN, Literal: l.getPeekedLiteral()}
+		} else {
+			tok = token.NewToken(token.REM, l.ch)
+		}
 	case '!':
 		if l.peekChar() == '=' {
 			tok = token.Token{Type: token.NOTEQ, Literal: l.getPeekedLiteral()}
@@ -70,9 +99,9 @@ func (l *Lexer) NextToken() token.Token {
 	case '}':
 		tok = token.NewToken(token.RBRACE, l.ch)
 	case '[':
-		tok = token.NewToken(token.LSQUARE, l.ch)
+		tok = token.NewToken(token.LBRACK, l.ch)
 	case ']':
-		tok = token.NewToken(token.RSQUARE, l.ch)
+		tok = token.NewToken(token.RBRACK, l.ch)
 	case 0:
 		tok = token.NewToken(token.EOF, l.ch)
 		tok.Literal = ""
@@ -83,7 +112,13 @@ func (l *Lexer) NextToken() token.Token {
 			return tok
 		} else if isDigit(l.ch) {
 			tok.Literal = l.readNumber()
-			tok.Type = token.INT
+
+			if strings.Contains(tok.Literal, ".") {
+				tok.Type = token.FLOAT
+			} else {
+				tok.Type = token.INT
+			}
+
 			return tok
 		} else {
 			tok = token.NewToken(token.ILLEGAL, l.ch)
@@ -133,6 +168,10 @@ func (l *Lexer) readNumber() string {
 	position := l.position
 
 	for isDigit(l.ch) {
+		if l.peekChar() == '.' {
+			l.readChar()
+			l.readChar()
+		}
 		l.readChar()
 	}
 
