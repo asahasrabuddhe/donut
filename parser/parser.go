@@ -10,6 +10,11 @@ import (
 	"go.ajitem.com/donut/token"
 )
 
+type (
+	prefixParser func() ast.Expression
+	infixParser  func(ast.Expression) ast.Expression
+)
+
 // The Parser has three fields:
 // l - a pointer to an instance of the lexer to get the next token in the input
 // currentToken, peekToken - point to the current and the next token in the input. Analogus to position and readPosition
@@ -21,6 +26,9 @@ type Parser struct {
 
 	currentToken token.Token
 	peekToken    token.Token
+
+	prefixParsers map[token.Type]prefixParser
+	infixParsers  map[token.Type]infixParser
 }
 
 func NewParser(l *lexer.Lexer) *Parser {
@@ -28,6 +36,12 @@ func NewParser(l *lexer.Lexer) *Parser {
 		l:      l,
 		errors: []error{},
 	}
+
+	p.prefixParsers = make(map[token.Type]prefixParser)
+
+	p.registerPrefixParser(token.IDENT, p.parseIdentifier)
+	p.registerPrefixParser(token.INT, p.parseIntegerLiteral)
+	p.registerPrefixParser(token.FLOAT, p.parseFloatLiteral)
 
 	// Reading the next two tokens ensures that both currentToken and peekTokens are set
 	p.nextToken()
@@ -55,4 +69,8 @@ func (p *Parser) ParseProgram() *ast.Program {
 
 func (p *Parser) Errors() []error {
 	return p.errors
+}
+
+func (p *Parser) parseIdentifier() ast.Expression {
+	return &ast.Identifier{Token: p.currentToken, Value: p.currentToken.Literal}
 }
