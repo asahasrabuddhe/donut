@@ -48,6 +48,20 @@ func NewParser(l *lexer.Lexer) *Parser {
 	p.registerPrefixParser(token.INCR, p.parsePrefixExpression)
 	p.registerPrefixParser(token.DECR, p.parsePrefixExpression)
 
+	p.infixParsers = make(map[token.Type]infixParser)
+
+	p.registerInfixParser(token.ADD, p.parseInfixExpression)
+	p.registerInfixParser(token.ADD_ASSIGN, p.parseInfixExpression)
+	p.registerInfixParser(token.SUB, p.parseInfixExpression)
+	p.registerInfixParser(token.MUL, p.parseInfixExpression)
+	p.registerInfixParser(token.DIV, p.parseInfixExpression)
+	p.registerInfixParser(token.EQ, p.parseInfixExpression)
+	p.registerInfixParser(token.NOTEQ, p.parseInfixExpression)
+	p.registerInfixParser(token.LT, p.parseInfixExpression)
+	p.registerInfixParser(token.LTE, p.parseInfixExpression)
+	p.registerInfixParser(token.GT, p.parseInfixExpression)
+	p.registerInfixParser(token.GTE, p.parseInfixExpression)
+
 	// Reading the next two tokens ensures that both currentToken and peekTokens are set
 	p.nextToken()
 	p.nextToken()

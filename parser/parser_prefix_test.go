@@ -103,7 +103,7 @@ func testFloatLiteral(t *testing.T, il ast.Expression, value float64) bool {
 		t.Errorf("float.Value not %f. got=%f", value, float.Value)
 		return false
 	}
-	if float.TokenLiteral() != fmt.Sprintf("%.2f", value) {
+	if float.TokenLiteral() != fmt.Sprintf("%v", value) {
 		t.Errorf("float.TokenLiteral not %f. got=%s", value,
 			float.TokenLiteral())
 		return false
