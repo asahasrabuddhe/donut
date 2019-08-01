@@ -6,6 +6,8 @@ package ast
 
 import "go.ajitem.com/donut/token"
 
+// <expression>;
+
 type IntegerLiteral struct {
 	Token token.Token
 	Value int64
