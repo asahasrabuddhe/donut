@@ -36,6 +36,7 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 	prefix := p.prefixParsers[p.currentToken.Type]
 
 	if prefix == nil {
+		p.noPrefixParseFunctionError(p.currentToken.Type)
 		return nil
 	}
 

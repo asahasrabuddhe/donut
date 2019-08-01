@@ -43,6 +43,11 @@ func NewParser(l *lexer.Lexer) *Parser {
 	p.registerPrefixParser(token.INT, p.parseIntegerLiteral)
 	p.registerPrefixParser(token.FLOAT, p.parseFloatLiteral)
 
+	p.registerPrefixParser(token.BANG, p.parsePrefixExpression)
+	p.registerPrefixParser(token.SUB, p.parsePrefixExpression)
+	p.registerPrefixParser(token.INCR, p.parsePrefixExpression)
+	p.registerPrefixParser(token.DECR, p.parsePrefixExpression)
+
 	// Reading the next two tokens ensures that both currentToken and peekTokens are set
 	p.nextToken()
 	p.nextToken()
@@ -69,8 +74,4 @@ func (p *Parser) ParseProgram() *ast.Program {
 
 func (p *Parser) Errors() []error {
 	return p.errors
-}
-
-func (p *Parser) parseIdentifier() ast.Expression {
-	return &ast.Identifier{Token: p.currentToken, Value: p.currentToken.Literal}
 }
