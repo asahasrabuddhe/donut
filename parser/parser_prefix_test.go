@@ -8,23 +8,19 @@ import (
 	"fmt"
 	"go.ajitem.com/donut/ast"
 	"go.ajitem.com/donut/lexer"
-	"go.ajitem.com/donut/token"
 	"testing"
 )
 
 func TestParsingPrefixExpressions(t *testing.T) {
 	prefixTests := []struct {
-		input           string
-		operator        string
-		integerValue    int64
-		floatValue      float64
-		identifierValue string
-		tokenType       string
+		input    string
+		operator string
+		value    interface{}
 	}{
-		{input: "!5;", operator: "!", integerValue: 5, tokenType: token.INT},
-		{input: "-15.51;", operator: "-", floatValue: 15.51, tokenType: token.FLOAT},
-		{input: "--x;", operator: "--", identifierValue: "x", tokenType: token.IDENT},
-		{input: "++y;", operator: "++", identifierValue: "y", tokenType: token.IDENT},
+		{input: "!5;", operator: "!", value: 5},
+		{input: "-15.51;", operator: "-", value: 15.51},
+		{input: "--x;", operator: "--", value: "x"},
+		{input: "++y;", operator: "++", value: "y"},
 	}
 
 	for _, tt := range prefixTests {
@@ -57,27 +53,38 @@ func TestParsingPrefixExpressions(t *testing.T) {
 				tt.operator, exp.Operator)
 		}
 
-		switch tt.tokenType {
-		case token.INT:
-			if !testIntegerLiteral(t, exp.Right, tt.integerValue) {
-				return
-			}
-		case token.FLOAT:
-			if !testFloatLiteral(t, exp.Right, tt.floatValue) {
-				return
-			}
-		case token.IDENT:
-			if !testIdentifier(t, exp.Right, tt.identifierValue) {
-				return
-			}
-		}
+		testLiteralExpression(t, exp.Right, tt.value)
 	}
 }
 
-func testIntegerLiteral(t *testing.T, il ast.Expression, value int64) bool {
-	integer, ok := il.(*ast.IntegerLiteral)
+func testLiteralExpression(t *testing.T, expression ast.Expression, value interface{}) bool {
+	switch val := value.(type) {
+	case int:
+		return testIntegerLiteral(t, expression, int64(val))
+	case int8:
+		return testIntegerLiteral(t, expression, int64(val))
+	case int16:
+		return testIntegerLiteral(t, expression, int64(val))
+	case int32:
+		return testIntegerLiteral(t, expression, int64(val))
+	case int64:
+		return testIntegerLiteral(t, expression, val)
+	case float32:
+		return testFloatLiteral(t, expression, float64(val))
+	case float64:
+		return testFloatLiteral(t, expression, val)
+	case string:
+		return testIdentifier(t, expression, val)
+	default:
+		t.Errorf("type of expression not handled. got=%T", expression)
+		return false
+	}
+}
+
+func testIntegerLiteral(t *testing.T, expression ast.Expression, value int64) bool {
+	integer, ok := expression.(*ast.IntegerLiteral)
 	if !ok {
-		t.Errorf("il not *ast.IntegerLiteral. got=%T", il)
+		t.Errorf("expression not *ast.IntegerLiteral. got=%T", expression)
 		return false
 	}
 	if integer.Value != value {
@@ -93,10 +100,10 @@ func testIntegerLiteral(t *testing.T, il ast.Expression, value int64) bool {
 	return true
 }
 
-func testFloatLiteral(t *testing.T, il ast.Expression, value float64) bool {
-	float, ok := il.(*ast.FloatLiteral)
+func testFloatLiteral(t *testing.T, expression ast.Expression, value float64) bool {
+	float, ok := expression.(*ast.FloatLiteral)
 	if !ok {
-		t.Errorf("il not *ast.IntegerLiteral. got=%T", il)
+		t.Errorf("expression not *ast.IntegerLiteral. got=%T", expression)
 		return false
 	}
 	if float.Value != value {
@@ -112,16 +119,18 @@ func testFloatLiteral(t *testing.T, il ast.Expression, value float64) bool {
 	return true
 }
 
-func testIdentifier(t *testing.T, il ast.Expression, value string) bool {
-	identifier, ok := il.(*ast.Identifier)
+func testIdentifier(t *testing.T, expression ast.Expression, value string) bool {
+	identifier, ok := expression.(*ast.Identifier)
 	if !ok {
-		t.Errorf("il not *ast.IntegerLiteral. got=%T", il)
+		t.Errorf("expression not *ast.IntegerLiteral. got=%T", expression)
 		return false
 	}
+
 	if identifier.Value != value {
 		t.Errorf("identifier.Value not %s. got=%s", value, identifier.Value)
 		return false
 	}
+
 	if identifier.TokenLiteral() != fmt.Sprintf("%s", value) {
 		t.Errorf("identifier.TokenLiteral not %s. got=%s", value,
 			identifier.TokenLiteral())
