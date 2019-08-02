@@ -42,12 +42,12 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 
 	leftExp := prefix()
 
-	for !p.peekTokenIs(token.SEMICOLON) && precedence < p.peekTokenPrecedence() {
-		postfix := p.postfixParsers[p.peekToken.Type]
-		if postfix != nil {
-			return postfix(leftExp)
-		}
+	postfix := p.postfixParsers[p.peekToken.Type]
+	if postfix != nil {
+		return postfix(leftExp)
+	}
 
+	for !p.peekTokenIs(token.SEMICOLON) && precedence < p.peekTokenPrecedence() {
 		infix := p.infixParsers[p.peekToken.Type]
 		if infix == nil {
 			return leftExp
