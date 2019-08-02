@@ -27,24 +27,10 @@ func TestIdentifierExpression(t *testing.T) {
 	}
 
 	stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
-
 	if !ok {
 		t.Fatalf("program.Statements[0] is not ast.ExpressionStatement. got=%T",
 			program.Statements[0])
 	}
 
-	identifier, ok := stmt.Expression.(*ast.Identifier)
-
-	if !ok {
-		t.Fatalf("exp not *ast.Identifier. got=%T", stmt.Expression)
-	}
-
-	if identifier.Value != "foobar" {
-		t.Errorf("identifier.Value not %s. got=%s", "foobar", identifier.Value)
-	}
-
-	if identifier.TokenLiteral() != "foobar" {
-		t.Errorf("identifier.TokenLiteral not %s. got=%s", "foobar",
-			identifier.TokenLiteral())
-	}
+	testLiteralExpression(t, stmt.Expression, "foobar")
 }
