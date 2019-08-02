@@ -11,8 +11,9 @@ import (
 )
 
 type (
-	prefixParser func() ast.Expression
-	infixParser  func(ast.Expression) ast.Expression
+	prefixParser  func() ast.Expression
+	infixParser   func(ast.Expression) ast.Expression
+	postfixParser func(ast.Expression) ast.Expression
 )
 
 // The Parser has three fields:
@@ -27,8 +28,9 @@ type Parser struct {
 	currentToken token.Token
 	peekToken    token.Token
 
-	prefixParsers map[token.Type]prefixParser
-	infixParsers  map[token.Type]infixParser
+	prefixParsers  map[token.Type]prefixParser
+	infixParsers   map[token.Type]infixParser
+	postfixParsers map[token.Type]postfixParser
 }
 
 func NewParser(l *lexer.Lexer) *Parser {
@@ -61,6 +63,11 @@ func NewParser(l *lexer.Lexer) *Parser {
 	p.registerInfixParser(token.LTE, p.parseInfixExpression)
 	p.registerInfixParser(token.GT, p.parseInfixExpression)
 	p.registerInfixParser(token.GTE, p.parseInfixExpression)
+
+	p.postfixParsers = make(map[token.Type]postfixParser)
+
+	p.registerPostfixParser(token.INCR, p.parsePostfixExpression)
+	p.registerPostfixParser(token.DECR, p.parsePostfixExpression)
 
 	// Reading the next two tokens ensures that both currentToken and peekTokens are set
 	p.nextToken()
