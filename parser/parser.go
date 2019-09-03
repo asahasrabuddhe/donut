@@ -70,6 +70,7 @@ func NewParser(l *lexer.Lexer) *Parser {
 	p.registerInfixParser(token.LTE, p.parseInfixExpression)
 	p.registerInfixParser(token.GT, p.parseInfixExpression)
 	p.registerInfixParser(token.GTE, p.parseInfixExpression)
+	p.registerInfixParser(token.LPAREN, p.parseCallExpression)
 
 	p.postfixParsers = make(map[token.Type]postfixParser)
 
