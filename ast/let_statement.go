@@ -5,9 +5,9 @@
 package ast
 
 import (
-	"bytes"
 	"fmt"
 	"go.ajitem.com/donut/token"
+	"strings"
 )
 
 // let <identifier> = <expression>;
@@ -25,7 +25,7 @@ func (l *LetStatement) TokenLiteral() string {
 }
 
 func (l *LetStatement) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 
 	out.WriteString(fmt.Sprintf("%s %s = ", l.TokenLiteral(), l.Name.String()))
 

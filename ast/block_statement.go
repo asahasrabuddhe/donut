@@ -5,8 +5,8 @@
 package ast
 
 import (
-	"bytes"
 	"go.ajitem.com/donut/token"
+	"strings"
 )
 
 type BlockStatement struct {
@@ -21,7 +21,7 @@ func (b *BlockStatement) TokenLiteral() string {
 }
 
 func (b *BlockStatement) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 
 	for _, statement := range b.Statements {
 		out.WriteString(statement.String())

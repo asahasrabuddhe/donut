@@ -5,8 +5,8 @@
 package ast
 
 import (
-	"bytes"
 	"go.ajitem.com/donut/token"
+	"strings"
 )
 
 // if (<condition>) <consequence> else <alternative>
@@ -25,7 +25,7 @@ func (i *IfExpression) TokenLiteral() string {
 }
 
 func (i *IfExpression) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 
 	out.WriteString("if")
 	out.WriteString(i.Condition.String())
