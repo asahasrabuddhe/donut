@@ -1,6 +1,6 @@
-// Copyright (c) 2019 Ajitem Sahasrabuddhe <me@ajitem.com>
-// All rights reserved. Use of this source code is governed
-// by the MIT license that can be found in the LICENSE file.
+// Copyright © 2020 Ajitem Sahasrabuddhe. All rights reserved.
+// Use of this source code is governed by a MIT license
+// details of which can be found in the LICENSE file.
 
 package repl
 
