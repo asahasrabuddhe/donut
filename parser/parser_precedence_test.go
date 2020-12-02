@@ -66,6 +66,22 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 			input:    "a += 5 * 2",
 			expected: "(a += (5 * 2))",
 		},
+		{
+			input:    "true",
+			expected: "true",
+		},
+		{
+			input:    "false",
+			expected: "false",
+		},
+		{
+			input:    "3 > 5 == false",
+			expected: "((3 > 5) == false)",
+		},
+		{
+			input:    "30 < 5 != true",
+			expected: "((30 < 5) != true)",
+		},
 	}
 
 	for _, tt := range tests {

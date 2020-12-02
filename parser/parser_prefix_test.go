@@ -21,6 +21,8 @@ func TestParsingPrefixExpressions(t *testing.T) {
 		{input: "-15.51;", operator: "-", value: 15.51},
 		{input: "--x;", operator: "--", value: "x"},
 		{input: "++y;", operator: "++", value: "y"},
+		{input: "!true;", operator: "!", value: true},
+		{input: "!false;", operator: "!", value: false},
 	}
 
 	for _, tt := range prefixTests {
@@ -75,6 +77,8 @@ func testLiteralExpression(t *testing.T, expression ast.Expression, value interf
 		return testFloatLiteral(t, expression, val)
 	case string:
 		return testIdentifier(t, expression, val)
+	case bool:
+		return testBooleanLiteral(t, expression, val)
 	default:
 		t.Errorf("type of expression not handled. got=%T", expression)
 		return false
@@ -133,6 +137,27 @@ func testIdentifier(t *testing.T, expression ast.Expression, value string) bool 
 
 	if identifier.TokenLiteral() != fmt.Sprintf("%s", value) {
 		t.Errorf("identifier.TokenLiteral not %s. got=%s", value,
+			identifier.TokenLiteral())
+		return false
+	}
+
+	return true
+}
+
+func testBooleanLiteral(t *testing.T, expression ast.Expression, value bool) bool {
+	identifier, ok := expression.(*ast.BooleanLiteral)
+	if !ok {
+		t.Errorf("expression not *ast.IntegerLiteral. got=%T", expression)
+		return false
+	}
+
+	if identifier.Value != value {
+		t.Errorf("identifier.Value not %t. got=%t", value, identifier.Value)
+		return false
+	}
+
+	if identifier.TokenLiteral() != fmt.Sprintf("%t", value) {
+		t.Errorf("identifier.TokenLiteral not %t. got=%s", value,
 			identifier.TokenLiteral())
 		return false
 	}
