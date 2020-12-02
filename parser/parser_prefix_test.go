@@ -135,7 +135,7 @@ func testIdentifier(t *testing.T, expression ast.Expression, value string) bool 
 		return false
 	}
 
-	if identifier.TokenLiteral() != fmt.Sprintf("%s", value) {
+	if identifier.TokenLiteral() != value {
 		t.Errorf("identifier.TokenLiteral not %s. got=%s", value,
 			identifier.TokenLiteral())
 		return false
