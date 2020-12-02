@@ -17,7 +17,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.RETURN:
 		return p.parseReturnStatement()
 	default:
-		return nil
+		return p.parseExpressionStatement()
 	}
 }
 
@@ -47,4 +47,12 @@ func (p *Parser) expectPeek(t token.Type) bool {
 func (p *Parser) peekError(t token.Type) {
 	err := fmt.Errorf("expected next to be %s, got %s instead", t, p.peekToken.Type)
 	p.errors = append(p.errors, err)
+}
+
+func (p *Parser) registerPrefixParser(t token.Type, fn prefixParser) {
+	p.prefixParsers[t] = fn
+}
+
+func (p *Parser) registerInfixParser(t token.Type, fn infixParser) {
+	p.infixParsers[t] = fn
 }

@@ -171,6 +171,8 @@ func (l *Lexer) readNumber() string {
 		if l.peekChar() == '.' {
 			l.readChar()
 			l.readChar()
+
+			continue
 		}
 		l.readChar()
 	}
