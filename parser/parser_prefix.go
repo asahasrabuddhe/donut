@@ -14,7 +14,7 @@ func (p *Parser) parsePrefixExpression() ast.Expression {
 
 	p.nextToken()
 
-	expression.Right = p.parseExpression(PREFIX)
+	expression.Right = p.parseExpression(Prefix)
 
 	return expression
 }

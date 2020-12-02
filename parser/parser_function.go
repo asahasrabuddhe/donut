@@ -12,13 +12,13 @@ import (
 func (p *Parser) parseFunctionLiteral() ast.Expression {
 	functionLiteral := &ast.FunctionLiteral{Token: p.currentToken}
 
-	if !p.expectPeek(token.LPAREN) {
+	if !p.expectPeek(token.LeftParenthesis) {
 		return nil
 	}
 
 	functionLiteral.Parameters = p.parseFunctionParameters()
 
-	if !p.expectPeek(token.LBRACE) {
+	if !p.expectPeek(token.LeftBrace) {
 		return nil
 	}
 
@@ -30,7 +30,7 @@ func (p *Parser) parseFunctionLiteral() ast.Expression {
 func (p *Parser) parseFunctionParameters() []*ast.Identifier {
 	var identifiers []*ast.Identifier
 
-	if p.peekTokenIs(token.RPAREN) {
+	if p.peekTokenIs(token.RightParenthesis) {
 		p.nextToken()
 		return identifiers
 	}
@@ -40,7 +40,7 @@ func (p *Parser) parseFunctionParameters() []*ast.Identifier {
 	identifier := &ast.Identifier{Token: p.currentToken, Value: p.currentToken.Literal}
 	identifiers = append(identifiers, identifier)
 
-	for p.peekTokenIs(token.COMMA) {
+	for p.peekTokenIs(token.Comma) {
 		p.nextToken()
 		p.nextToken()
 
@@ -48,7 +48,7 @@ func (p *Parser) parseFunctionParameters() []*ast.Identifier {
 		identifiers = append(identifiers, identifier)
 	}
 
-	if !p.expectPeek(token.RPAREN) {
+	if !p.expectPeek(token.RightParenthesis) {
 		return nil
 	}
 

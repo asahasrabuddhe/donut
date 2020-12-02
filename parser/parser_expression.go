@@ -11,21 +11,21 @@ import (
 
 const (
 	_ int = iota
-	LOWEST
-	EQUALS
-	LESSGREATER
-	SUM
-	PRODUCT
-	PREFIX
-	CALL
+	Lowest
+	Equals
+	LessOrGreater
+	Sum
+	Product
+	Prefix
+	Call
 )
 
 func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 	stmt := &ast.ExpressionStatement{Token: p.currentToken}
 
-	stmt.Expression = p.parseExpression(LOWEST)
+	stmt.Expression = p.parseExpression(Lowest)
 
-	if p.peekTokenIs(token.SEMICOLON) {
+	if p.peekTokenIs(token.Semicolon) {
 		p.nextToken()
 	}
 
@@ -47,7 +47,7 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 		return postfix(leftExp)
 	}
 
-	for !p.peekTokenIs(token.SEMICOLON) && precedence < p.peekTokenPrecedence() {
+	for !p.peekTokenIs(token.Semicolon) && precedence < p.peekTokenPrecedence() {
 		infix := p.infixParsers[p.peekToken.Type]
 		if infix == nil {
 			return leftExp

@@ -32,7 +32,7 @@ func Start(in io.Reader, out io.Writer) error {
 		line := scanner.Text()
 		l := lexer.NewLexer(line)
 
-		for tok := l.NextToken(); tok.Type != token.EOF; tok = l.NextToken() {
+		for tok := l.NextToken(); tok.Type != token.Eof; tok = l.NextToken() {
 			_, err := fmt.Fprintf(out, "%+v\n", tok)
 			if err != nil {
 				return err

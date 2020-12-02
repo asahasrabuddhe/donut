@@ -19,21 +19,21 @@ func (p *Parser) parseCallExpression(function ast.Expression) ast.Expression {
 func (p *Parser) parseCallArguments() []ast.Expression {
 	var arguments []ast.Expression
 
-	if p.peekTokenIs(token.RPAREN) {
+	if p.peekTokenIs(token.RightParenthesis) {
 		p.nextToken()
 		return arguments
 	}
 
 	p.nextToken()
-	arguments = append(arguments, p.parseExpression(LOWEST))
+	arguments = append(arguments, p.parseExpression(Lowest))
 
-	for p.peekTokenIs(token.COMMA) {
+	for p.peekTokenIs(token.Comma) {
 		p.nextToken()
 		p.nextToken()
-		arguments = append(arguments, p.parseExpression(LOWEST))
+		arguments = append(arguments, p.parseExpression(Lowest))
 	}
 
-	if !p.expectPeek(token.RPAREN) {
+	if !p.expectPeek(token.RightParenthesis) {
 		return nil
 	}
 
