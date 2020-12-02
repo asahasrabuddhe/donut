@@ -1,6 +1,6 @@
 package lexer
 
-import "github.com/asahasrabuddhe/donut/token"
+import "go.ajitem.com/donut/token"
 
 type Lexer struct {
 	input        string
