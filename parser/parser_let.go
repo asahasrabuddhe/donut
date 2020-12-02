@@ -22,9 +22,11 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 		return nil
 	}
 
-	// TODO: handle expressions
+	p.nextToken()
 
-	for !p.currentTokenIs(token.Semicolon) {
+	stmt.Value = p.parseExpression(Lowest)
+
+	if p.peekTokenIs(token.Semicolon) {
 		p.nextToken()
 	}
 
