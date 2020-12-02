@@ -31,10 +31,10 @@ The donut programming language has the following desired feature list:
     let result = 2 * (10 / 5)
     
     let array = [1, 2, 3, 4, 5];
-    array[2] // => 3
+    // array[2] => 3
     
     let object = {"name": "Ajitem", "age": 29}
-    object["name"] // => "Ajitem"
+    // object["name"] => "Ajitem"
     
     let sum = func(a, b) { return a + b };
     let diff = func(a, b) { a - b };
@@ -55,7 +55,7 @@ The donut programming language has the following desired feature list:
         return x + 1;
     }
     
-    twice(increment, 3); // => 5
+    // twice(increment, 3); => 5
 ```
 
 # REPL
