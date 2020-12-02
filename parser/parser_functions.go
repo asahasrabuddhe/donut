@@ -57,6 +57,10 @@ func (p *Parser) registerInfixParser(t token.Type, fn infixParser) {
 	p.infixParsers[t] = fn
 }
 
+func (p *Parser) registerPostfixParser(t token.Type, fn postfixParser) {
+	p.postfixParsers[t] = fn
+}
+
 func (p *Parser) noPrefixParseFunctionError(t token.Type) {
 	p.errors = append(p.errors, fmt.Errorf("no prefix parse function for %s found", t))
 }
