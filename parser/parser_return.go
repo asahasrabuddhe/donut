@@ -14,7 +14,8 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 
 	p.nextToken()
 
-	// TODO: handle expressions
+	stmt.Value = p.parseExpression(Lowest)
+
 	for !p.currentTokenIs(token.Semicolon) {
 		p.nextToken()
 	}
