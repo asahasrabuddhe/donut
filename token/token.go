@@ -28,6 +28,10 @@ const (
 	SLASH    = "/"
 	LT       = "<"
 	GT       = ">"
+	EQ       = "=="
+	NOT_EQ   = "!="
+	LTE      = "<="
+	GTE      = ">="
 
 	// Delimiters
 	COMMA     = ","
