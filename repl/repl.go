@@ -8,7 +8,7 @@ import (
 	"bufio"
 	"fmt"
 	"go.ajitem.com/donut/lexer"
-	"go.ajitem.com/donut/token"
+	"go.ajitem.com/donut/parser"
 	"io"
 )
 
@@ -24,19 +24,22 @@ func Start(in io.Reader, out io.Writer) error {
 		}
 
 		scanned := scanner.Scan()
-
 		if !scanned {
+			return nil
+		}
+		line := scanner.Text()
+
+		l := lexer.NewLexer(line)
+		p := parser.NewParser(l)
+
+		program := p.ParseProgram()
+		if len(p.Errors()) != 0 {
+			for _, err := range p.Errors() {
+				_, _ = fmt.Fprintf(out, "\t%s\n", err.Error())
+			}
 			continue
 		}
 
-		line := scanner.Text()
-		l := lexer.NewLexer(line)
-
-		for tok := l.NextToken(); tok.Type != token.Eof; tok = l.NextToken() {
-			_, err := fmt.Fprintf(out, "%+v\n", tok)
-			if err != nil {
-				return err
-			}
-		}
+		_, _ = fmt.Fprintln(out, program)
 	}
 }
