@@ -58,7 +58,7 @@ const (
 	RBRACK = "]"
 
 	// Keywords
-	FUNCTION = "FUNCTIOM"
+	FUNCTION = "FUNCTION"
 	LET      = "LET"
 	TRUE     = "TRUE"
 	FALSE    = "FALSE"
@@ -68,7 +68,7 @@ const (
 )
 
 var keywords = map[string]Type{
-	"fn":     FUNCTION,
+	"func":   FUNCTION,
 	"let":    LET,
 	"true":   TRUE,
 	"false":  FALSE,

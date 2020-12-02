@@ -55,6 +55,7 @@ func NewParser(l *lexer.Lexer) *Parser {
 
 	p.registerPrefixParser(token.LPAREN, p.parseGroupedExpression)
 	p.registerPrefixParser(token.IF, p.parseIfExpression)
+	p.registerPrefixParser(token.FUNCTION, p.parseFunctionLiteral)
 
 	p.infixParsers = make(map[token.Type]infixParser)
 
