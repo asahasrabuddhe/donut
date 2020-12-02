@@ -9,6 +9,8 @@ import (
 	"go.ajitem.com/donut/token"
 )
 
+// <prefix operator> <expression>;
+
 type PrefixExpression struct {
 	Token    token.Token
 	Operator string
