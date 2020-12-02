@@ -10,5 +10,5 @@ import (
 )
 
 func (p *Parser) parseBoolean() ast.Expression {
-	return &ast.BooleanLiteral{Token: p.currentToken, Value: p.currentTokenIs(token.TRUE)}
+	return &ast.BooleanLiteral{Token: p.currentToken, Value: p.currentTokenIs(token.True)}
 }

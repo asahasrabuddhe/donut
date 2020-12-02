@@ -12,19 +12,19 @@ import (
 func (p *Parser) parseLetStatement() *ast.LetStatement {
 	stmt := &ast.LetStatement{Token: p.currentToken}
 
-	if !p.expectPeek(token.IDENT) {
+	if !p.expectPeek(token.Identifier) {
 		return nil
 	}
 
 	stmt.Name = &ast.Identifier{Token: p.currentToken, Value: p.currentToken.Literal}
 
-	if !p.expectPeek(token.ASSIGN) {
+	if !p.expectPeek(token.Assign) {
 		return nil
 	}
 
 	// TODO: handle expressions
 
-	for !p.currentTokenIs(token.SEMICOLON) {
+	for !p.currentTokenIs(token.Semicolon) {
 		p.nextToken()
 	}
 

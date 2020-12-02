@@ -15,7 +15,7 @@ func (p *Parser) parseBlockStatement() *ast.BlockStatement {
 
 	p.nextToken()
 
-	if !p.currentTokenIs(token.RBRACE) && !p.currentTokenIs(token.EOF) {
+	if !p.currentTokenIs(token.RightBrace) && !p.currentTokenIs(token.Eof) {
 		stmt := p.parseStatement()
 		if stmt != nil {
 			block.Statements = append(block.Statements, stmt)

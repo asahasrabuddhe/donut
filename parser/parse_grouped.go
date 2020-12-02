@@ -12,9 +12,9 @@ import (
 func (p *Parser) parseGroupedExpression() ast.Expression {
 	p.nextToken()
 
-	exp := p.parseExpression(LOWEST)
+	exp := p.parseExpression(Lowest)
 
-	if !p.expectPeek(token.RPAREN) {
+	if !p.expectPeek(token.RightParenthesis) {
 		return nil
 	}
 

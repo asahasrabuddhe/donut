@@ -15,7 +15,7 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 	p.nextToken()
 
 	// TODO: handle expressions
-	for !p.currentTokenIs(token.SEMICOLON) {
+	for !p.currentTokenIs(token.Semicolon) {
 		p.nextToken()
 	}
 

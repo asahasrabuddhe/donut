@@ -16,65 +16,65 @@ func NewToken(tokenType Type, ch byte) Token {
 }
 
 const (
-	ILLEGAL = "ILLEGAL"
-	EOF     = "EOF"
+	Illegal = "Illegal"
+	Eof     = "Eof"
 
 	// Identifiers and Literals
-	IDENT = "IDENT"
-	INT   = "INT"
-	FLOAT = "FLOAT"
+	Identifier = "Identifier"
+	Integer    = "Integer"
+	Float      = "Float"
 
 	// Operators
-	ASSIGN     = "="
-	ADD        = "+"
-	ADD_ASSIGN = "+="
-	INCR       = "++"
-	SUB        = "-"
-	SUB_ASSIGN = "-="
-	DECR       = "--"
-	BANG       = "!"
-	MUL        = "*"
-	MUL_ASSIGN = "*="
-	DIV        = "/"
-	DIV_ASSIGN = "/="
-	REM        = "%"
-	REM_ASSIGN = "%="
-	LT         = "<"
-	GT         = ">"
-	EQ         = "=="
-	NOTEQ      = "!="
-	LTE        = "<="
-	GTE        = ">="
+	Assign              = "="
+	Add                 = "+"
+	AddAssign           = "+="
+	Increment           = "++"
+	Subtract            = "-"
+	SubtractAssign      = "-="
+	Decrement           = "--"
+	Bang                = "!"
+	Multiply            = "*"
+	MultiplyAssign      = "*="
+	Divide              = "/"
+	DivideAssign        = "/="
+	Remainder           = "%"
+	RemainderAssign     = "%="
+	LessThan            = "<"
+	GreaterThan         = ">"
+	Equals              = "=="
+	NotEquals           = "!="
+	LessThanOrEquals    = "<="
+	GreaterThanOrEquals = ">="
 
 	// Delimiters
-	COMMA     = ","
-	SEMICOLON = ";"
+	Comma     = ","
+	Semicolon = ";"
 
-	LPAREN = "("
-	RPAREN = ")"
-	LBRACE = "{"
-	RBRACE = "}"
-	LBRACK = "["
-	RBRACK = "]"
+	LeftParenthesis  = "("
+	RightParenthesis = ")"
+	LeftBrace        = "{"
+	RightBrace       = "}"
+	LeftBracket      = "["
+	RightBracket     = "]"
 
 	// Keywords
-	FUNCTION = "FUNCTION"
-	LET      = "LET"
-	TRUE     = "TRUE"
-	FALSE    = "FALSE"
-	IF       = "IF"
-	ELSE     = "ELSE"
-	RETURN   = "RETURN"
+	Function = "Function"
+	Let      = "Let"
+	True     = "True"
+	False    = "False"
+	If       = "If"
+	Else     = "Else"
+	Return   = "Return"
 )
 
 var keywords = map[string]Type{
-	"func":   FUNCTION,
-	"let":    LET,
-	"true":   TRUE,
-	"false":  FALSE,
-	"if":     IF,
-	"else":   ELSE,
-	"return": RETURN,
+	"fn":     Function,
+	"let":    Let,
+	"true":   True,
+	"false":  False,
+	"if":     If,
+	"else":   Else,
+	"return": Return,
 }
 
 func LookupIndent(ident string) Type {
@@ -82,5 +82,5 @@ func LookupIndent(ident string) Type {
 		return tok
 	}
 
-	return IDENT
+	return Identifier
 }

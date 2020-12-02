@@ -7,21 +7,21 @@ package parser
 import "go.ajitem.com/donut/token"
 
 var precedences = map[token.Type]int{
-	token.EQ:         EQUALS,
-	token.NOTEQ:      EQUALS,
-	token.LT:         LESSGREATER,
-	token.LTE:        LESSGREATER,
-	token.GT:         LESSGREATER,
-	token.GTE:        LESSGREATER,
-	token.ADD:        SUM,
-	token.ADD_ASSIGN: SUM,
-	token.SUB:        SUM,
-	token.SUB_ASSIGN: SUM,
-	token.DIV:        PRODUCT,
-	token.DIV_ASSIGN: PRODUCT,
-	token.MUL:        PRODUCT,
-	token.MUL_ASSIGN: PRODUCT,
-	token.LPAREN:     CALL,
+	token.Equals:              Equals,
+	token.NotEquals:           Equals,
+	token.LessThan:            LessOrGreater,
+	token.LessThanOrEquals:    LessOrGreater,
+	token.GreaterThan:         LessOrGreater,
+	token.GreaterThanOrEquals: LessOrGreater,
+	token.Add:                 Sum,
+	token.AddAssign:           Sum,
+	token.Subtract:            Sum,
+	token.SubtractAssign:      Sum,
+	token.Divide:              Product,
+	token.DivideAssign:        Product,
+	token.Multiply:            Product,
+	token.MultiplyAssign:      Product,
+	token.LeftParenthesis:     Call,
 }
 
 func (p *Parser) peekTokenPrecedence() int {
@@ -29,7 +29,7 @@ func (p *Parser) peekTokenPrecedence() int {
 		return p
 	}
 
-	return LOWEST
+	return Lowest
 }
 
 func (p *Parser) currentTokenPrecedence() int {
@@ -37,5 +37,5 @@ func (p *Parser) currentTokenPrecedence() int {
 		return p
 	}
 
-	return LOWEST
+	return Lowest
 }

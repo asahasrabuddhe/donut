@@ -30,80 +30,80 @@ func (l *Lexer) NextToken() token.Token {
 	switch l.ch {
 	case '=':
 		if l.peekChar() == '=' {
-			tok = token.Token{Type: token.EQ, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.Equals, Literal: l.getPeekedLiteral()}
 		} else {
-			tok = token.NewToken(token.ASSIGN, l.ch)
+			tok = token.NewToken(token.Assign, l.ch)
 		}
 	case '+':
 		if l.peekChar() == '+' {
-			tok = token.Token{Type: token.INCR, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.Increment, Literal: l.getPeekedLiteral()}
 		} else if l.peekChar() == '=' {
-			tok = token.Token{Type: token.ADD_ASSIGN, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.AddAssign, Literal: l.getPeekedLiteral()}
 		} else {
-			tok = token.NewToken(token.ADD, l.ch)
+			tok = token.NewToken(token.Add, l.ch)
 		}
 	case '-':
 		if l.peekChar() == '-' {
-			tok = token.Token{Type: token.DECR, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.Decrement, Literal: l.getPeekedLiteral()}
 		} else if l.peekChar() == '=' {
-			tok = token.Token{Type: token.SUB_ASSIGN, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.SubtractAssign, Literal: l.getPeekedLiteral()}
 		} else {
-			tok = token.NewToken(token.SUB, l.ch)
+			tok = token.NewToken(token.Subtract, l.ch)
 		}
 	case '*':
 		if l.peekChar() == '=' {
-			tok = token.Token{Type: token.MUL_ASSIGN, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.MultiplyAssign, Literal: l.getPeekedLiteral()}
 		} else {
-			tok = token.NewToken(token.MUL, l.ch)
+			tok = token.NewToken(token.Multiply, l.ch)
 		}
 	case '/':
 		if l.peekChar() == '=' {
-			tok = token.Token{Type: token.DIV_ASSIGN, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.DivideAssign, Literal: l.getPeekedLiteral()}
 		} else {
-			tok = token.NewToken(token.DIV, l.ch)
+			tok = token.NewToken(token.Divide, l.ch)
 		}
 	case '%':
 		if l.peekChar() == '=' {
-			tok = token.Token{Type: token.REM_ASSIGN, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.RemainderAssign, Literal: l.getPeekedLiteral()}
 		} else {
-			tok = token.NewToken(token.REM, l.ch)
+			tok = token.NewToken(token.Remainder, l.ch)
 		}
 	case '!':
 		if l.peekChar() == '=' {
-			tok = token.Token{Type: token.NOTEQ, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.NotEquals, Literal: l.getPeekedLiteral()}
 		} else {
-			tok = token.NewToken(token.BANG, l.ch)
+			tok = token.NewToken(token.Bang, l.ch)
 		}
 	case '<':
 		if l.peekChar() == '=' {
-			tok = token.Token{Type: token.LTE, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.LessThanOrEquals, Literal: l.getPeekedLiteral()}
 		} else {
-			tok = token.NewToken(token.LT, l.ch)
+			tok = token.NewToken(token.LessThan, l.ch)
 		}
 	case '>':
 		if l.peekChar() == '=' {
-			tok = token.Token{Type: token.GTE, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.GreaterThanOrEquals, Literal: l.getPeekedLiteral()}
 		} else {
-			tok = token.NewToken(token.GT, l.ch)
+			tok = token.NewToken(token.GreaterThan, l.ch)
 		}
 	case ',':
-		tok = token.NewToken(token.COMMA, l.ch)
+		tok = token.NewToken(token.Comma, l.ch)
 	case ';':
-		tok = token.NewToken(token.SEMICOLON, l.ch)
+		tok = token.NewToken(token.Semicolon, l.ch)
 	case '(':
-		tok = token.NewToken(token.LPAREN, l.ch)
+		tok = token.NewToken(token.LeftParenthesis, l.ch)
 	case ')':
-		tok = token.NewToken(token.RPAREN, l.ch)
+		tok = token.NewToken(token.RightParenthesis, l.ch)
 	case '{':
-		tok = token.NewToken(token.LBRACE, l.ch)
+		tok = token.NewToken(token.LeftBrace, l.ch)
 	case '}':
-		tok = token.NewToken(token.RBRACE, l.ch)
+		tok = token.NewToken(token.RightBrace, l.ch)
 	case '[':
-		tok = token.NewToken(token.LBRACK, l.ch)
+		tok = token.NewToken(token.LeftBracket, l.ch)
 	case ']':
-		tok = token.NewToken(token.RBRACK, l.ch)
+		tok = token.NewToken(token.RightBracket, l.ch)
 	case 0:
-		tok = token.NewToken(token.EOF, l.ch)
+		tok = token.NewToken(token.Eof, l.ch)
 		tok.Literal = ""
 	default:
 		if isLetter(l.ch) {
@@ -114,14 +114,14 @@ func (l *Lexer) NextToken() token.Token {
 			tok.Literal = l.readNumber()
 
 			if strings.Contains(tok.Literal, ".") {
-				tok.Type = token.FLOAT
+				tok.Type = token.Float
 			} else {
-				tok.Type = token.INT
+				tok.Type = token.Integer
 			}
 
 			return tok
 		} else {
-			tok = token.NewToken(token.ILLEGAL, l.ch)
+			tok = token.NewToken(token.Illegal, l.ch)
 		}
 	}
 

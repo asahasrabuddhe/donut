@@ -41,41 +41,41 @@ func NewParser(l *lexer.Lexer) *Parser {
 
 	p.prefixParsers = make(map[token.Type]prefixParser)
 
-	p.registerPrefixParser(token.IDENT, p.parseIdentifier)
-	p.registerPrefixParser(token.INT, p.parseIntegerLiteral)
-	p.registerPrefixParser(token.FLOAT, p.parseFloatLiteral)
+	p.registerPrefixParser(token.Identifier, p.parseIdentifier)
+	p.registerPrefixParser(token.Integer, p.parseIntegerLiteral)
+	p.registerPrefixParser(token.Float, p.parseFloatLiteral)
 
-	p.registerPrefixParser(token.BANG, p.parsePrefixExpression)
-	p.registerPrefixParser(token.SUB, p.parsePrefixExpression)
-	p.registerPrefixParser(token.INCR, p.parsePrefixExpression)
-	p.registerPrefixParser(token.DECR, p.parsePrefixExpression)
+	p.registerPrefixParser(token.Bang, p.parsePrefixExpression)
+	p.registerPrefixParser(token.Subtract, p.parsePrefixExpression)
+	p.registerPrefixParser(token.Increment, p.parsePrefixExpression)
+	p.registerPrefixParser(token.Decrement, p.parsePrefixExpression)
 
-	p.registerPrefixParser(token.TRUE, p.parseBoolean)
-	p.registerPrefixParser(token.FALSE, p.parseBoolean)
+	p.registerPrefixParser(token.True, p.parseBoolean)
+	p.registerPrefixParser(token.False, p.parseBoolean)
 
-	p.registerPrefixParser(token.LPAREN, p.parseGroupedExpression)
-	p.registerPrefixParser(token.IF, p.parseIfExpression)
-	p.registerPrefixParser(token.FUNCTION, p.parseFunctionLiteral)
+	p.registerPrefixParser(token.LeftParenthesis, p.parseGroupedExpression)
+	p.registerPrefixParser(token.If, p.parseIfExpression)
+	p.registerPrefixParser(token.Function, p.parseFunctionLiteral)
 
 	p.infixParsers = make(map[token.Type]infixParser)
 
-	p.registerInfixParser(token.ADD, p.parseInfixExpression)
-	p.registerInfixParser(token.ADD_ASSIGN, p.parseInfixExpression)
-	p.registerInfixParser(token.SUB, p.parseInfixExpression)
-	p.registerInfixParser(token.MUL, p.parseInfixExpression)
-	p.registerInfixParser(token.DIV, p.parseInfixExpression)
-	p.registerInfixParser(token.EQ, p.parseInfixExpression)
-	p.registerInfixParser(token.NOTEQ, p.parseInfixExpression)
-	p.registerInfixParser(token.LT, p.parseInfixExpression)
-	p.registerInfixParser(token.LTE, p.parseInfixExpression)
-	p.registerInfixParser(token.GT, p.parseInfixExpression)
-	p.registerInfixParser(token.GTE, p.parseInfixExpression)
-	p.registerInfixParser(token.LPAREN, p.parseCallExpression)
+	p.registerInfixParser(token.Add, p.parseInfixExpression)
+	p.registerInfixParser(token.AddAssign, p.parseInfixExpression)
+	p.registerInfixParser(token.Subtract, p.parseInfixExpression)
+	p.registerInfixParser(token.Multiply, p.parseInfixExpression)
+	p.registerInfixParser(token.Divide, p.parseInfixExpression)
+	p.registerInfixParser(token.Equals, p.parseInfixExpression)
+	p.registerInfixParser(token.NotEquals, p.parseInfixExpression)
+	p.registerInfixParser(token.LessThan, p.parseInfixExpression)
+	p.registerInfixParser(token.LessThanOrEquals, p.parseInfixExpression)
+	p.registerInfixParser(token.GreaterThan, p.parseInfixExpression)
+	p.registerInfixParser(token.GreaterThanOrEquals, p.parseInfixExpression)
+	p.registerInfixParser(token.LeftParenthesis, p.parseCallExpression)
 
 	p.postfixParsers = make(map[token.Type]postfixParser)
 
-	p.registerPostfixParser(token.INCR, p.parsePostfixExpression)
-	p.registerPostfixParser(token.DECR, p.parsePostfixExpression)
+	p.registerPostfixParser(token.Increment, p.parsePostfixExpression)
+	p.registerPostfixParser(token.Decrement, p.parsePostfixExpression)
 
 	// Reading the next two tokens ensures that both currentToken and peekTokens are set
 	p.nextToken()
@@ -88,7 +88,7 @@ func (p *Parser) ParseProgram() *ast.Program {
 	program := &ast.Program{}
 	program.Statements = ast.Statements{}
 
-	for !p.currentTokenIs(token.EOF) {
+	for !p.currentTokenIs(token.Eof) {
 		stmt := p.parseStatement()
 
 		if stmt != nil {
