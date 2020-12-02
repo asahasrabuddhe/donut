@@ -7,6 +7,7 @@ package main
 import (
 	"fmt"
 	"go.ajitem.com/donut/repl"
+	"log"
 	"os"
 	"os/user"
 )
@@ -20,5 +21,5 @@ func main() {
 	fmt.Printf("Hello %s! Welcome to The Donut Programming Language!\n", usr.Username)
 	fmt.Printf("Awaiting input...\n")
 
-	repl.Start(os.Stdin, os.Stdout)
+	log.Fatal(repl.Start(os.Stdin, os.Stdout))
 }
