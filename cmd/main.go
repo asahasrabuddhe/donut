@@ -6,7 +6,7 @@ package main
 
 import (
 	"fmt"
-	"go.ajitem.com/donut/repl"
+	"go.ajitem.com/donut/internal/repl"
 	"log"
 	"os"
 	"os/user"

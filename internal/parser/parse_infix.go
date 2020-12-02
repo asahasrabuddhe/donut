@@ -4,7 +4,7 @@
 
 package parser
 
-import "go.ajitem.com/donut/ast"
+import "go.ajitem.com/donut/internal/ast"
 
 func (p *Parser) parseInfixExpression(left ast.Expression) ast.Expression {
 	expression := &ast.InfixExpression{

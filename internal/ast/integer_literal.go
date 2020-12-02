@@ -4,7 +4,7 @@
 
 package ast
 
-import "go.ajitem.com/donut/token"
+import "go.ajitem.com/donut/internal/token"
 
 // <expression>;
 

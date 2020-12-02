@@ -4,7 +4,7 @@
 
 package parser
 
-import "go.ajitem.com/donut/token"
+import "go.ajitem.com/donut/internal/token"
 
 var precedences = map[token.Type]int{
 	token.Equals:              Equals,

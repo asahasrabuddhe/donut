@@ -6,7 +6,7 @@ package ast
 
 import (
 	"fmt"
-	"go.ajitem.com/donut/token"
+	"go.ajitem.com/donut/internal/token"
 	"strings"
 )
 

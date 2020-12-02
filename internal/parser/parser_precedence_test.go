@@ -5,7 +5,7 @@
 package parser
 
 import (
-	"go.ajitem.com/donut/lexer"
+	"go.ajitem.com/donut/internal/lexer"
 	"testing"
 )
 

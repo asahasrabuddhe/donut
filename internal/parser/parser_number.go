@@ -6,7 +6,7 @@ package parser
 
 import (
 	"fmt"
-	"go.ajitem.com/donut/ast"
+	"go.ajitem.com/donut/internal/ast"
 	"strconv"
 	"strings"
 )

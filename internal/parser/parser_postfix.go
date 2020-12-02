@@ -5,7 +5,7 @@
 package parser
 
 import (
-	"go.ajitem.com/donut/ast"
+	"go.ajitem.com/donut/internal/ast"
 )
 
 func (p *Parser) parsePostfixExpression(left ast.Expression) ast.Expression {

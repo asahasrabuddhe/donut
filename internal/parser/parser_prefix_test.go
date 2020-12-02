@@ -6,8 +6,8 @@ package parser
 
 import (
 	"fmt"
-	"go.ajitem.com/donut/ast"
-	"go.ajitem.com/donut/lexer"
+	"go.ajitem.com/donut/internal/ast"
+	"go.ajitem.com/donut/internal/lexer"
 	"testing"
 )
 

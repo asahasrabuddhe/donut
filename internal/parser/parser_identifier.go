@@ -4,7 +4,7 @@
 
 package parser
 
-import "go.ajitem.com/donut/ast"
+import "go.ajitem.com/donut/internal/ast"
 
 func (p *Parser) parseIdentifier() ast.Expression {
 	return &ast.Identifier{Token: p.currentToken, Value: p.currentToken.Literal}

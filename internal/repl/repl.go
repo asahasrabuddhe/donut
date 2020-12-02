@@ -7,8 +7,8 @@ package repl
 import (
 	"bufio"
 	"fmt"
-	"go.ajitem.com/donut/lexer"
-	"go.ajitem.com/donut/parser"
+	"go.ajitem.com/donut/internal/lexer"
+	"go.ajitem.com/donut/internal/parser"
 	"io"
 )
 

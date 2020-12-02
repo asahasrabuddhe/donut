@@ -6,8 +6,8 @@ package parser
 
 import (
 	"fmt"
-	"go.ajitem.com/donut/ast"
-	"go.ajitem.com/donut/token"
+	"go.ajitem.com/donut/internal/ast"
+	"go.ajitem.com/donut/internal/token"
 )
 
 func (p *Parser) parseStatement() ast.Statement {
