@@ -13,7 +13,7 @@ type Lexer struct {
 	ch           byte
 }
 
-func New(input string) *Lexer {
+func NewLexer(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar()
 	return l
@@ -41,7 +41,7 @@ func (l *Lexer) NextToken() token.Token {
 		tok = token.NewToken(token.SLASH, l.ch)
 	case '!':
 		if l.peekChar() == '=' {
-			tok = token.Token{Type: token.NOT_EQ, Literal: l.getPeekedLiteral()}
+			tok = token.Token{Type: token.NOTEQ, Literal: l.getPeekedLiteral()}
 		} else {
 			tok = token.NewToken(token.BANG, l.ch)
 		}
