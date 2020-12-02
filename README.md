@@ -60,36 +60,20 @@ The donut programming language has the following desired feature list:
 
 # REPL
 
-Basic REPL is implemented that, for now, outputs tokens for input source code
+The REPL now supports parsing a program.
 
 ```
 Hello ajitem! Welcome to The Donut Programming Language!
 Awaiting input...
->> let five = 5;
-{Type:LET Literal:let}
-{Type:IDENT Literal:five}
-{Type:= Literal:=}
-{Type:INT Literal:5}
-{Type:; Literal:;}
->> let add = fn(x, y) { x + y; };
-{Type:LET Literal:let}
-{Type:IDENT Literal:add}
-{Type:= Literal:=}
-{Type:FUNCTIOM Literal:fn}
-{Type:( Literal:(}
-{Type:IDENT Literal:x}
-{Type:, Literal:,}
-{Type:IDENT Literal:y}
-{Type:) Literal:)}
-{Type:{ Literal:{}
-{Type:IDENT Literal:x}
-{Type:+ Literal:+}
-{Type:IDENT Literal:y}
-{Type:; Literal:;}
-{Type:} Literal:}}
-{Type:; Literal:;}
+🍩 let x = 1 + 3 * 2
+let x = (1 + (3 * 2));
+🍩 let y = 3 + 5 * 2 - 1 / 3
+let y = ((3 + (5 * 2)) - (1 / 3));
+🍩 let y 12 * 2
+        expected next to be =, got Integer instead
+🍩 
 ```
 
 # Next Steps
 
-The next step here is to implement a parser to start parsing these tokens :)
+The next step here is to evaluate the parsed program :)
