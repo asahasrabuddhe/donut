@@ -31,10 +31,10 @@ The donut programming language has the following desired feature list:
     let result = 2 * (10 / 5)
     
     let array = [1, 2, 3, 4, 5];
-    array[2] // => 3
+    // array[2] => 3
     
     let object = {"name": "Ajitem", "age": 29}
-    object["name"] // => "Ajitem"
+    // object["name"] => "Ajitem"
     
     let sum = func(a, b) { return a + b };
     let diff = func(a, b) { a - b };
@@ -55,41 +55,25 @@ The donut programming language has the following desired feature list:
         return x + 1;
     }
     
-    twice(increment, 3); // => 5
+    // twice(increment, 3); => 5
 ```
 
 # REPL
 
-Basic REPL is implemented that, for now, outputs tokens for input source code
+The REPL now supports parsing a program.
 
 ```
 Hello ajitem! Welcome to The Donut Programming Language!
 Awaiting input...
->> let five = 5;
-{Type:LET Literal:let}
-{Type:IDENT Literal:five}
-{Type:= Literal:=}
-{Type:INT Literal:5}
-{Type:; Literal:;}
->> let add = fn(x, y) { x + y; };
-{Type:LET Literal:let}
-{Type:IDENT Literal:add}
-{Type:= Literal:=}
-{Type:FUNCTIOM Literal:fn}
-{Type:( Literal:(}
-{Type:IDENT Literal:x}
-{Type:, Literal:,}
-{Type:IDENT Literal:y}
-{Type:) Literal:)}
-{Type:{ Literal:{}
-{Type:IDENT Literal:x}
-{Type:+ Literal:+}
-{Type:IDENT Literal:y}
-{Type:; Literal:;}
-{Type:} Literal:}}
-{Type:; Literal:;}
+🍩 let x = 1 + 3 * 2
+let x = (1 + (3 * 2));
+🍩 let y = 3 + 5 * 2 - 1 / 3
+let y = ((3 + (5 * 2)) - (1 / 3));
+🍩 let y 12 * 2
+        expected next to be =, got Integer instead
+🍩 
 ```
 
 # Next Steps
 
-The next step here is to implement a parser to start parsing these tokens :)
+The next step here is to evaluate the parsed program :)
