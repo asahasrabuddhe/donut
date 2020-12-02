@@ -21,6 +21,7 @@ var precedences = map[token.Type]int{
 	token.DIV_ASSIGN: PRODUCT,
 	token.MUL:        PRODUCT,
 	token.MUL_ASSIGN: PRODUCT,
+	token.LPAREN:     CALL,
 }
 
 func (p *Parser) peekTokenPrecedence() int {
