@@ -5,8 +5,8 @@
 package ast
 
 import (
-	"bytes"
 	"go.ajitem.com/donut/token"
+	"strings"
 )
 
 // <prefix operator> <expression>;
@@ -24,7 +24,7 @@ func (p *PrefixExpression) TokenLiteral() string {
 }
 
 func (p *PrefixExpression) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 
 	out.WriteString("(")
 	out.WriteString(p.Operator)

@@ -4,7 +4,7 @@
 
 package ast
 
-import "bytes"
+import "strings"
 
 type Program struct {
 	Statements Statements
@@ -19,7 +19,7 @@ func (p *Program) TokenLiteral() string {
 }
 
 func (p *Program) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 
 	for _, s := range p.Statements {
 		_, _ = out.WriteString(s.String())

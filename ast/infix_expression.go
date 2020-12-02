@@ -5,9 +5,9 @@
 package ast
 
 import (
-	"bytes"
 	"fmt"
 	"go.ajitem.com/donut/token"
+	"strings"
 )
 
 // <expression> <infix operator> <expression>;
@@ -26,7 +26,7 @@ func (i *InfixExpression) TokenLiteral() string {
 }
 
 func (i *InfixExpression) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 
 	out.WriteString("(")
 	out.WriteString(i.Left.String())
